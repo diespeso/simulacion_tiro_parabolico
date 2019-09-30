@@ -22,7 +22,7 @@ class Particula:
 		self.altura_maxima = 0
 		self.distancia_recorrida = 0
 
-		self.delta_tiempo = 0.01
+		self.delta_tiempo = 0.02
 
 		self.trayectoria = Trayectoria()
 
@@ -62,7 +62,7 @@ class Particula:
 
 		self.posicion = Punto(int(posicion_x), int(posicion_y))
 		self.trayectoria.add_punto(self.posicion)
-		print("posición: ", self.posicion)
+		#print("posición: ", self.posicion)
 		self.tiempo_transcurrido += self.delta_tiempo
 
 		if(self.tiempo_transcurrido >= self.tiempo_total):
