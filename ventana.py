@@ -41,8 +41,6 @@ class Ventana:
 		for c in self.canvas.values():
 			c.update()
 			self.superficie.blit(c.get_superficie(), c.origen)
-
-
 		pygame.display.flip()
 
 

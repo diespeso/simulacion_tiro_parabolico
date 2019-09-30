@@ -65,6 +65,9 @@ class Particula:
 		print("posición: ", self.posicion)
 		self.tiempo_transcurrido += self.delta_tiempo
 
+		if(self.tiempo_transcurrido >= self.tiempo_total):
+			self.is_simulando = False
+
 	def get_velocidad_actual(self, posicion_x):
 		return self.velocidad
 
