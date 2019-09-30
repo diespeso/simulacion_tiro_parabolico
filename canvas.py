@@ -46,7 +46,7 @@ class Canvas:
 				pos_x = pygame.mouse.get_pos()[0]
 				if pos_x in particula.trayectoria.puntos.keys():
 					pos_y = particula.trayectoria.puntos[pos_x]
-					print(pos_x, pos_y)
+					#print(pos_x, pos_y)
 					pygame.draw.circle(self.superficie, (255, 255, 0), (pos_x, pos_y), 3, 0)
 		
 		self.superficie.blit(pygame.transform.rotate(self.superficie, 180), (0, 0))

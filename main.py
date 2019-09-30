@@ -11,7 +11,7 @@ ventana = Ventana((600, 400))
 canvas = Canvas((600, 300), (0, 100))
 particula = Particula()
 canvas.add_particula(particula, 0)
-particula.lanzar(80, 30)
 ventana.add_canvas(canvas, "0")
+#particula.lanzar(80, 30)
 ventana.run()
 
