@@ -25,6 +25,9 @@ class Ventana:
 		canvas.pantalla = self.superficie
 		self.canvas[nombre] = canvas
 
+	def add_particula(self, particula, id):
+		self.particulas[id] = particula
+
 	def run(self):
 		activo = True
 		while activo:
@@ -36,7 +39,9 @@ class Ventana:
 	def display(self):
 		self.superficie.fill(self.background)
 		for c in self.canvas.values():
+			c.update()
 			self.superficie.blit(c.get_superficie(), c.origen)
+
 
 		pygame.display.flip()
 

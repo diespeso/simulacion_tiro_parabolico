@@ -2,6 +2,8 @@
 
 import pygame
 
+from particula import Particula
+
 class Canvas:
 	"""
 		una subventana para renderizar lo que se quiera
@@ -17,9 +19,14 @@ class Canvas:
 		self.ratio_vertical = 0.60 #ajusta la proporción vertical
 		self.ratio_horizontal = 0.5 #no es relevante al final
 		self.background = background
+		self.particulas = {}
 
 	def get_superficie(self):
 		return self.superficie
+
+	def add_particula(self, particula, id):
+		particula.canvas = self
+		self.particulas[id] = particula
 
 	def update(self):
 		"""
@@ -29,6 +36,16 @@ class Canvas:
 		"""
 		self.superficie.fill(self.background)
 		self.pantalla.blit(self.superficie, self.origen)
+		for particula in self.particulas.values():
+			if particula.tiempo_transcurrido < particula.tiempo_total:
+				particula.simular()
+			pygame.draw.circle(self.superficie, (255, 100, 50), (int(particula.posicion.x), int(particula.posicion.y)), 4, 0)
+			particula.trayectoria.render(self)
+			if(not particula.is_simulando):
+				self.render_trayectoria(0)
+				pos_x = pygame.mouse.get_pos()[0]
+				
+	
 
 	def get_tamano_lista(self):
 		#muestra el tamano en forma de array []

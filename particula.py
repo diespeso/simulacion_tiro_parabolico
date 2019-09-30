@@ -2,7 +2,9 @@
 
 from vector import Vector
 from punto import Punto
+from trayectoria import Trayectoria
 import math
+import pygame
 
 class Particula:
 	"""
@@ -20,8 +22,19 @@ class Particula:
 		self.altura_maxima = 0
 		self.distancia_recorrida = 0
 
-	def lanzar(self, velocidad, angulo):
+		self.delta_tiempo = 0.01
 
+		self.trayectoria = Trayectoria()
+
+		self.is_simulando = False
+
+		self.canvas = None
+
+	def lanzar(self, velocidad, angulo):
+		if self.canvas == None:
+			raise "No se asignó canvas"
+
+		self.is_simulando = True
 		self.velocidad_inicial = Vector(modulo=velocidad, angulo=angulo)
 		print(self.velocidad_inicial)
 		self.velocidad = self.velocidad_inicial
@@ -38,24 +51,19 @@ class Particula:
 
 	def simular(self):
 		#TODO: el ciclo no debe ir aquí adentro
-		while(self.tiempo_transcurrido < self.tiempo_total):
+		resultante_x = self.velocidad_inicial.get_vector_x().get_modulo()
+		cambio_y = self.gravedad * self.tiempo_transcurrido
+		resultante_y = cambio_y + self.velocidad_inicial.get_vector_y().get_repr_y()
 
-			resultante_x = self.velocidad_inicial.get_vector_x().get_modulo()
-			cambio_y = self.gravedad * self.tiempo_transcurrido
-			resultante_y = cambio_y + self.velocidad_inicial.get_vector_y().get_repr_y()
+		self.velocidad = Vector(x=resultante_x, y=resultante_y)
 
-			self.velocidad = Vector(x=resultante_x, y=resultante_y)
+		posicion_x = self.velocidad_inicial.get_vector_x().get_modulo() * self.tiempo_transcurrido
+		posicion_y = self.velocidad_inicial.get_vector_y().get_modulo() * self.tiempo_transcurrido + (self.gravedad * math.pow(self.tiempo_transcurrido, 2.0)) / 2
 
-			posicion_x = self.velocidad_inicial.get_vector_x().get_modulo() * self.tiempo_transcurrido
-			posicion_y = self.velocidad_inicial.get_vector_y().get_modulo() * self.tiempo_transcurrido + (self.gravedad * math.pow(self.tiempo_transcurrido, 2.0)) / 2
-
-			self.posicion = Punto(posicion_x, posicion_y)
-			print("posición: ", self.posicion)
-			self.tiempo_transcurrido += 0.1
-
-			
-			#print("tiempo: {0:.2f}, x: {1}, y: {2}".format(
-			#	self.tiempo_transcurrido, self.velocidad.get_vector_x(), self.velocidad.get_vector_y()))
+		self.posicion = Punto(int(posicion_x), int(posicion_y))
+		self.trayectoria.add_punto(self.posicion)
+		print("posición: ", self.posicion)
+		self.tiempo_transcurrido += self.delta_tiempo
 
 	def get_velocidad_actual(self, posicion_x):
 		return self.velocidad
