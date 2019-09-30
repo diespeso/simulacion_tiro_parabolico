@@ -12,5 +12,5 @@ class Trayectoria:
 		
 	def render(self, canvas):
 		for punto_x, punto_y in self.puntos.items():
-			pygame.draw.circle(canvas.superficie, (100, 50, 250), (punto_x, punto_y), 2, 0)
+			pygame.draw.circle(canvas.superficie, (100, 50, 250), (punto_x, punto_y), 1, 0)
 

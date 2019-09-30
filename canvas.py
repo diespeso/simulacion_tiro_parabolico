@@ -41,10 +41,16 @@ class Canvas:
 				particula.simular()
 			pygame.draw.circle(self.superficie, (255, 100, 50), (int(particula.posicion.x), int(particula.posicion.y)), 4, 0)
 			particula.trayectoria.render(self)
-			if(not particula.is_simulando):
-				self.render_trayectoria(0)
+			if(not particula.is_simulando):		#al terminar la simulación
+				#self.render_trayectoria(0)
 				pos_x = pygame.mouse.get_pos()[0]
-				
+				if pos_x in particula.trayectoria.puntos.keys():
+					pos_y = particula.trayectoria.puntos[pos_x]
+					print(pos_x, pos_y)
+					pygame.draw.circle(self.superficie, (255, 255, 0), (pos_x, pos_y), 3, 0)
+		
+		self.superficie.blit(pygame.transform.rotate(self.superficie, 180), (0, 0))
+		self.superficie.blit(pygame.transform.flip(self.superficie, True, False), (0, 0))
 	
 
 	def get_tamano_lista(self):
