@@ -6,10 +6,6 @@ from particula import Estado
 
 pygame.init()
 
-#NEWCODE
-
-#NEWCODE
-
 class Ventana:
 	#clase de utilería para abrir una ventana y renderizar
 	def __init__(self, tamano, background=(255, 255, 255)):
@@ -34,7 +30,6 @@ class Ventana:
 	def add_particula(self, particula, id):
 		self.particulas[id] = particula
 
-	#NEWCODE
 	def leer(self):
 		self.salida = (int(self.inserter_velocidad.get_value()), int(self.inserter_angulo.get_value()))
 		self.canvas["0"].particulas[0].lanzar(self.salida[0], self.salida[1])
@@ -45,9 +40,6 @@ class Ventana:
 			if(p_x in self.canvas["0"].particulas[0].trayectoria.puntos):
 				self.posicion_x.set_text("x: " + str(p_x) + "m")
 				self.posicion_y.set_text("y: " + str(self.canvas["0"].particulas[0].trayectoria.puntos[p_x]) + "m")
-
-	#NEWCODE
-
 
 	def run(self):
 		activo = True
