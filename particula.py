@@ -66,7 +66,7 @@ class Particula:
 		#crear un vector sumando ambas componentes
 		posicion_y = self.velocidad_inicial.get_vector_y().escalar(self.tiempo_transcurrido).sumar(delta_y)	
 
-		#convertir el vector a un punto en el espacio para la trayectoria.
+		#convertir el vector a un punto en el espacio para la trayectoria.    
 		self.posicion = punto.from_vector_int(posicion_x.sumar(posicion_y))
 		self.trayectoria.add_punto(self.posicion)
 		self.tiempo_transcurrido += self.delta_tiempo
