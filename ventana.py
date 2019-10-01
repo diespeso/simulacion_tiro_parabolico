@@ -77,7 +77,9 @@ class Ventana:
 
 		#NEWCODE2
 		from gui.entrada import Entrada
+		from gui.entrada import Salida
 		entrada = Entrada(entradas=["velocidad", "angulo"])
+		salida = Salida(self.canvas["0"].particulas[0])
 
 		#NEWCODE2
 
@@ -101,6 +103,9 @@ class Ventana:
 					activo = False
 			#NEWCODE
 			self.superficie.fill(self.background)
+
+			if self.canvas["0"].particulas[0].estado == Estado.TERMINADO:
+				salida.update()
 			
 			"""
 			menu.refresh_population()
@@ -111,6 +116,7 @@ class Ventana:
 			"""
 			#NEWCODE
 			entrada.render()
+			salida.render()
 			self.display()
 
 	def display(self):

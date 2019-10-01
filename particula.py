@@ -75,11 +75,12 @@ class Particula:
 
 		#convertir el vector a un punto en el espacio para la trayectoria.    
 		self.posicion = punto.from_vector_int(posicion_x.sumar(posicion_y))
-		self.trayectoria.add_punto(self.posicion)
+		self.trayectoria.registrar(self.posicion, self.velocidad, self.tiempo_transcurrido)
 		self.tiempo_transcurrido += self.delta_tiempo
 
 		if(self.tiempo_transcurrido >= self.tiempo_total):
 			self.estado = Estado.TERMINADO
+			#self.trayectoria.mostrar()
 
 	def get_velocidad_actual(self, posicion_x):
 		return self.velocidad
