@@ -7,6 +7,13 @@ from trayectoria import Trayectoria
 import math
 import pygame
 
+from enum import Enum 
+
+class Estado(Enum):
+	SIN_LANZAR = 0
+	EN_MOVIMIENTO = 1
+	TERMINADO = 2
+
 class Particula:
 	"""
 		Representa a un objeto que describe una
@@ -27,15 +34,19 @@ class Particula:
 
 		self.trayectoria = Trayectoria()
 
-		self.is_simulando = False
+		self.estado = Estado.SIN_LANZAR
 
 		self.canvas = None
+
+	def __str__(self): 
+		return ("Tiempo total: {0:.2f}s, Altura máxima: {1:.2f}m").format(
+			self.tiempo_total, self.altura_maxima)
 
 	def lanzar(self, velocidad, angulo):
 		if self.canvas == None:
 			raise "No se asignó canvas"
 
-		self.is_simulando = True
+		self.estado = Estado.EN_MOVIMIENTO
 		self.velocidad_inicial = Vector(modulo=velocidad, angulo=angulo)
 		print(self.velocidad_inicial)
 		self.velocidad = self.velocidad_inicial
@@ -45,10 +56,6 @@ class Particula:
 			* self.tiempo_total / 2.0) + (self.gravedad.get_repr_y() * math.pow(self.tiempo_total / 2, 2.0)) / 2
 		
 		self.simular()
-
-	def __str__(self): 
-		return ("Tiempo total: {0:.2f}s, Altura máxima: {1:.2f}m").format(
-			self.tiempo_total, self.altura_maxima)
 
 	def simular(self):
 
@@ -72,7 +79,7 @@ class Particula:
 		self.tiempo_transcurrido += self.delta_tiempo
 
 		if(self.tiempo_transcurrido >= self.tiempo_total):
-			self.is_simulando = False
+			self.estado = Estado.TERMINADO
 
 	def get_velocidad_actual(self, posicion_x):
 		return self.velocidad

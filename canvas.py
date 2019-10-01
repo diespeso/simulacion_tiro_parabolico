@@ -3,6 +3,7 @@
 import pygame
 
 from particula import Particula
+from particula import Estado
 
 class Canvas:
 	"""
@@ -41,7 +42,7 @@ class Canvas:
 				particula.simular()
 			pygame.draw.circle(self.superficie, (255, 100, 50), (int(particula.posicion.x), int(particula.posicion.y)), 4, 0)
 			particula.trayectoria.render(self)
-			if(not particula.is_simulando):		#al terminar la simulación
+			if(particula.estado == Estado.TERMINADO):		#al terminar la simulación
 				#self.render_trayectoria(0)
 				pos_x = pygame.mouse.get_pos()[0]
 				if pos_x in particula.trayectoria.puntos.keys():
