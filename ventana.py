@@ -2,11 +2,8 @@
 
 import pygame
 
-<<<<<<< HEAD
-=======
 from particula import Estado
 
->>>>>>> master
 pygame.init()
 
 class Ventana:
@@ -89,6 +86,11 @@ class Ventana:
 
 				#NEWCODE2
 				entrada.update(evento)
+				if entrada._activado:
+					modulo = int(entrada.valores['velocidad'])
+					angulo = int(entrada.valores['angulo'])
+					self.canvas["0"].particulas[0].lanzar(modulo, angulo)
+					entrada._activado = False
 				#NEWCODE2
 
 				#NEWCODE

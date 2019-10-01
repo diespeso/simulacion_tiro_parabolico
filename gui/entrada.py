@@ -5,35 +5,13 @@ import thorpy
 
 from collections import OrderedDict
 
-class GUI:
+class Salida:
+	"""
+		Clase para mostrar las características de una partícula
+	"""
 
-	def __init__(self, **args):
-		self._entradas = []
-		self._etiquetas = []
-		if 'entradas' in args:
-			for entrada in args['entradas']:
-				self._entradas.append(entrada)
-		if 'etiquetas' in args:
-			for etiqueta in args['etiquetas']:
-				self._etiquetas.append(etiqueta)
-
-	@property
-	def entradas(self):
-		return self._entradas
-
-	@property
-	def etiquetas(self):
-		return self._etiquetas
-
-
-	def add_entrada(self, entrada):
-		self._entradas.append(entrada)
-
-	def add_etiqueta(self, etiqueta):
-		self._etiqueta.append(etiqueta)
-
-	def update(self, evento):
-		pass #renderizar cada entrada y cada etiqueta
+	def __init__(self, particula):
+		self._particula = particula
 
 
 class Entrada:
@@ -48,7 +26,7 @@ class Entrada:
 		"""
 		for k in self._inserters.keys():
 			self._valores[k] = self._inserters[k].get_value()
-			print(k, ": ", self._valores[k])
+		self._activado = True
 	
 	def __init__(self, **args):
 		"""
@@ -60,6 +38,7 @@ class Entrada:
 		self._superficie = None
 		self._menu = thorpy.Menu()
 		self._caja = None
+		self._activado = False
 
 		if 'entradas' in args:
 			for entrada in args['entradas']:
@@ -68,7 +47,6 @@ class Entrada:
 
 			self._boton = thorpy.make_button('Aceptar', func=self.leer)
 			elementos = [ v for v in self._inserters.values()]
-			print(type(elementos))
 			elementos.append(self._boton)
 			self._caja = thorpy.Box(elements=elementos)
 			self._boton.set_topleft((50, 50))
