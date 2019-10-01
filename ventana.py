@@ -4,10 +4,6 @@ import pygame
 
 pygame.init()
 
-#NEWCODE
-
-#NEWCODE
-
 class Ventana:
 	#clase de utilería para abrir una ventana y renderizar
 	def __init__(self, tamano, background=(255, 255, 255)):
@@ -51,6 +47,7 @@ class Ventana:
 		activo = True
 
 		#NEWCODE
+		"""
 		import thorpy
 		self.inserter_angulo = thorpy.Inserter("angulo: ")
 		self.inserter_velocidad = thorpy.Inserter("velocidad: ")
@@ -70,31 +67,47 @@ class Ventana:
 
 		for elemento in menu_dos.get_population():
 			elemento.surface = self.superficie
+		
 
 		caja.blit()
 		caja.update()
 		caja_dos.blit()
 		caja_dos.blit()
+		"""
 		#NEWCODE
+
+
+		#NEWCODE2
+		from gui.entrada import Entrada
+		entrada = Entrada(entradas=["velocidad", "angulo"])
+
+		#NEWCODE2
 
 		while activo:
 			for evento in pygame.event.get():
 
+				#NEWCODE2
+				entrada.update(evento)
+				#NEWCODE2
+
 				#NEWCODE
-				menu.react(evento)
-				menu_dos.react(evento)
+				#menu.react(evento)
+				#menu_dos.react(evento)
 				#NEWCODE
 				if(evento.type == pygame.QUIT):
 					activo = False
 			#NEWCODE
 			self.superficie.fill(self.background)
+			
+			"""
 			menu.refresh_population()
 			menu.blit_and_update()
 			menu_dos.refresh_population()
 			menu_dos.blit_and_update()
 			self.show_position()
+			"""
 			#NEWCODE
-
+			entrada.render()
 			self.display()
 
 	def display(self):

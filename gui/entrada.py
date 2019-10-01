@@ -41,29 +41,47 @@ class Entrada:
 		Un conjunto de Inserters para realizar entrada
 		con un sólo boton para obtener todas las entradas.
 	"""
+
+	def leer(self):
+		"""
+			Lee todas las entradas y asigna los valores al dicionario de valores
+		"""
+		for k in self._inserters.keys():
+			self._valores[k] = self._inserters[k].get_value()
+			print(k, ": ", self._valores[k])
 	
 	def __init__(self, **args):
 		"""
-			Entradas es una array de strings que identifican a cada entrada
+			crea los campos de inserción, el botón y el menú que los agrupa
 		"""
 		self._inserters = OrderedDict()
 		self._boton = None
 		self._valores = OrderedDict()
 		self._superficie = None
 		self._menu = thorpy.Menu()
+		self._caja = None
 
 		if 'entradas' in args:
 			for entrada in args['entradas']:
 				self._inserters[entrada] = thorpy.Inserter(entrada + ": ")
 				self._valores[entrada] = None
 
-			caja = thorpy.Box(elements=self._inserters.values())
-			self._menu.add_to_population(caja)
-
+			self._boton = thorpy.make_button('Aceptar', func=self.leer)
+			elementos = [ v for v in self._inserters.values()]
+			print(type(elementos))
+			elementos.append(self._boton)
+			self._caja = thorpy.Box(elements=elementos)
+			self._boton.set_topleft((50, 50))
+			#self._caja.add_elements([self._boton])
+			self._caja.blit()
+			self._caja.update()
+			self._menu.add_to_population(self._caja)
 				
 
 		if 'func' in args:
-			self._boton = thorpy.make_button('Aceptar', func=args['func']) # mejor usa mi propia función
+			 # mejor usa mi propia función
+			 pass
+
 
 	@property
 	def valores(self):
@@ -80,12 +98,10 @@ class Entrada:
 		self._superficie = superficie
 		self._boton.surface = superficie
 
-	def leer(self):
-		for k in self._inserters.keys():
-			self._valores[k] = self._inserters[k].get_value()
-
 	def update(self, event):
 		self._menu.react(event)
+
+	def render(self):
 		self._menu.refresh_population()
 		self._menu.blit_and_update()
 
@@ -103,7 +119,4 @@ if __name__ == '__main__':
 	particula = Particula()
 	canvas.add_particula(particula, 0)
 	ventana.add_canvas(canvas, "0")
-	#particula.lanzar(80, 30)
-	gui = GUI(entradas=[], func=[])
-	entrada = Entrada(entradas=["velocidad", "angulo"])
 	ventana.run()
