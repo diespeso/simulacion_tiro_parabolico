@@ -1,0 +1,5 @@
+-encapsular la lógica de los campos de entrada y los cuadros
+de texto en una sola clase.
+
+-En lugar de almacenar en el diccionario sólo la posición en y en base a la posición en x,
+almacenar la posición en y, el tiempo y las velocidades, para que se muestren en el programa
