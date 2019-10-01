@@ -2,6 +2,8 @@
 
 import math
 
+from punto import Punto
+
 class Vector:
 
 	def __init__(self, **args):
@@ -104,6 +106,15 @@ class Vector:
 
 		return Vector(x=this_x-v_x, y=this_y-v_y)
 
+	def descomponer(self):
+		return (self.get_vector_x(), self.get_vector_y())
+
+	def escalar(self, c):
+		return Vector(modulo=self.modulo * c, angulo= self.angulo)
+
+	def to_punto(self):
+		return Punto(self.get_repr_x(), self.get_repr_y())
+
 
 #---PRUEBAS---
 if __name__ == '__main__':
@@ -113,3 +124,5 @@ if __name__ == '__main__':
 
 	print(str(vector_x) + " + " + str(vector_y) + " = " + str(vector_x.sumar(vector_y)))
 	print(str(vector.restar(vector_y)))
+
+	print(vector_x.escalar(0.5))

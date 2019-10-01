@@ -2,6 +2,11 @@
 
 import pygame
 
+<<<<<<< HEAD
+=======
+from particula import Estado
+
+>>>>>>> master
 pygame.init()
 
 class Ventana:
@@ -28,20 +33,16 @@ class Ventana:
 	def add_particula(self, particula, id):
 		self.particulas[id] = particula
 
-	#NEWCODE
 	def leer(self):
 		self.salida = (int(self.inserter_velocidad.get_value()), int(self.inserter_angulo.get_value()))
 		self.canvas["0"].particulas[0].lanzar(self.salida[0], self.salida[1])
 
 	def show_position(self):
-		if(not self.canvas["0"].particulas[0].is_simulando):
+		if(self.canvas["0"].particulas[0].estado == Estado.TERMINADO):
 			p_x = pygame.mouse.get_pos()[0]
 			if(p_x in self.canvas["0"].particulas[0].trayectoria.puntos):
 				self.posicion_x.set_text("x: " + str(p_x) + "m")
 				self.posicion_y.set_text("y: " + str(self.canvas["0"].particulas[0].trayectoria.puntos[p_x]) + "m")
-
-	#NEWCODE
-
 
 	def run(self):
 		activo = True

@@ -2,9 +2,17 @@
 
 from vector import Vector
 from punto import Punto
+import punto
 from trayectoria import Trayectoria
 import math
 import pygame
+
+from enum import Enum 
+
+class Estado(Enum):
+	SIN_LANZAR = 0
+	EN_MOVIMIENTO = 1
+	TERMINADO = 2
 
 class Particula:
 	"""
@@ -15,7 +23,7 @@ class Particula:
 	def __init__(self):
 		self.posicion = Punto(0, 0)
 		self.velocidad = Vector(x=0, y=0)
-		self.gravedad = -9.8
+		self.gravedad = Vector(modulo=9.8, angulo=270)
 		self.velocidad_inicial = Vector(x=0, y=0)
 		self.tiempo_transcurrido = 0
 		self.tiempo_total = 0
@@ -26,47 +34,52 @@ class Particula:
 
 		self.trayectoria = Trayectoria()
 
-		self.is_simulando = False
+		self.estado = Estado.SIN_LANZAR
 
 		self.canvas = None
-
-	def lanzar(self, velocidad, angulo):
-		if self.canvas == None:
-			raise "No se asignó canvas"
-
-		self.is_simulando = True
-		self.velocidad_inicial = Vector(modulo=velocidad, angulo=angulo)
-		print(self.velocidad_inicial)
-		self.velocidad = self.velocidad_inicial
-		self.tiempo_total = (-self.velocidad_inicial.get_vector_y().get_modulo()
-			/ self.gravedad) * 2
-		self.altura_maxima = (self.velocidad_inicial.get_vector_y().get_modulo()
-			* self.tiempo_total / 2.0) + (self.gravedad * math.pow(self.tiempo_total / 2, 2.0)) / 2
-		
-		self.simular()
 
 	def __str__(self): 
 		return ("Tiempo total: {0:.2f}s, Altura máxima: {1:.2f}m").format(
 			self.tiempo_total, self.altura_maxima)
 
+	def lanzar(self, velocidad, angulo):
+		if self.canvas == None:
+			raise "No se asignó canvas"
+
+		self.estado = Estado.EN_MOVIMIENTO
+		self.velocidad_inicial = Vector(modulo=velocidad, angulo=angulo)
+		print(self.velocidad_inicial)
+		self.velocidad = self.velocidad_inicial
+		self.tiempo_total = (-self.velocidad_inicial.get_vector_y().get_modulo()
+			/ self.gravedad.get_repr_y()) * 2
+		self.altura_maxima = (self.velocidad_inicial.get_vector_y().get_modulo()
+			* self.tiempo_total / 2.0) + (self.gravedad.get_repr_y() * math.pow(self.tiempo_total / 2, 2.0)) / 2
+		
+		self.simular()
+
 	def simular(self):
-		#TODO: el ciclo no debe ir aquí adentro
-		resultante_x = self.velocidad_inicial.get_vector_x().get_modulo()
-		cambio_y = self.gravedad * self.tiempo_transcurrido
-		resultante_y = cambio_y + self.velocidad_inicial.get_vector_y().get_repr_y()
 
-		self.velocidad = Vector(x=resultante_x, y=resultante_y)
+		#primero obtener las componentes de la velocidad.
+		resultante_x = Vector(x=self.velocidad_inicial.get_vector_x().get_modulo(), y=0)
+		cambio_y = self.gravedad.get_repr_y() * self.tiempo_transcurrido
+		resultante_y = Vector(x= 0, y=cambio_y + self.velocidad_inicial.get_vector_y().get_repr_y())
 
-		posicion_x = self.velocidad_inicial.get_vector_x().get_modulo() * self.tiempo_transcurrido
-		posicion_y = self.velocidad_inicial.get_vector_y().get_modulo() * self.tiempo_transcurrido + (self.gravedad * math.pow(self.tiempo_transcurrido, 2.0)) / 2
+		#hacer un vector con ambas componentes
+		self.velocidad = resultante_x.sumar(resultante_y) #OPERACIÓN VECTORIAL: SUMA DE VECTORES
 
-		self.posicion = Punto(int(posicion_x), int(posicion_y))
+		#primero obtener las componentes de la velocidad utilizando escalamiento
+		posicion_x = self.velocidad_inicial.get_vector_x().escalar(self.tiempo_transcurrido) #OPERACIÓN VECTORIAL: ESCALAMIENTO DE VECTORES
+		delta_y = Vector(x=0, y = ((self.gravedad.get_repr_y() * math.pow(self.tiempo_transcurrido, 2.0)) / 2))
+		#crear un vector sumando ambas componentes
+		posicion_y = self.velocidad_inicial.get_vector_y().escalar(self.tiempo_transcurrido).sumar(delta_y)	
+
+		#convertir el vector a un punto en el espacio para la trayectoria.    
+		self.posicion = punto.from_vector_int(posicion_x.sumar(posicion_y))
 		self.trayectoria.add_punto(self.posicion)
-		#print("posición: ", self.posicion)
 		self.tiempo_transcurrido += self.delta_tiempo
 
 		if(self.tiempo_transcurrido >= self.tiempo_total):
-			self.is_simulando = False
+			self.estado = Estado.TERMINADO
 
 	def get_velocidad_actual(self, posicion_x):
 		return self.velocidad
