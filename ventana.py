@@ -4,14 +4,16 @@ import pygame
 
 from particula import Estado
 
+from variables import MENU_FONDO_COLOR
+
 pygame.init()
 
 class Ventana:
 	#clase de utilería para abrir una ventana y renderizar
-	def __init__(self, tamano, background=(255, 255, 255)):
+	def __init__(self, tamano):
 		self.tamano = tamano
 		self.superficie = pygame.display.set_mode(tamano)
-		self.background = background
+		self.background = MENU_FONDO_COLOR
 		self.canvas = {}
 
 	def get_superficie(self):

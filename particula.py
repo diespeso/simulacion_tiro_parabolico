@@ -7,6 +7,11 @@ from trayectoria import Trayectoria
 import math
 import pygame
 
+from vector_grafico import VectorGrafico
+
+from variables import (PARTICULA_COLOR, PARTICULA_RADIO, PARTICULA_VECTOR_COLOR,
+	PARTICULA_VECTOR_X_COLOR, PARTICULA_VECTOR_Y_COLOR, PARTICULA_VECTOR_X_GROSOR, PARTICULA_VECTOR_Y_GROSOR)
+
 from enum import Enum 
 
 class Estado(Enum):
@@ -37,6 +42,9 @@ class Particula:
 		self.estado = Estado.SIN_LANZAR
 
 		self.canvas = None
+
+		self.color = PARTICULA_COLOR
+		self.radio = PARTICULA_RADIO
 
 	def __str__(self): 
 		return ("Tiempo total: {0:.2f}s, Altura máxima: {1:.2f}m").format(
@@ -77,6 +85,13 @@ class Particula:
 		self.posicion = punto.from_vector_int(posicion_x.sumar(posicion_y))
 		self.trayectoria.registrar(self.posicion, self.velocidad, self.tiempo_transcurrido)
 		self.tiempo_transcurrido += self.delta_tiempo
+
+		VectorGrafico(self.posicion, self.velocidad).render(superficie=self.canvas.superficie,
+			color=PARTICULA_VECTOR_COLOR, grosor=PARTICULA_VECTOR_X_GROSOR) #usar mismo grosor que en x
+		VectorGrafico(self.posicion, self.velocidad.get_vector_x()).render(superficie=self.canvas.superficie, 
+			color=PARTICULA_VECTOR_X_COLOR, grosor=PARTICULA_VECTOR_X_GROSOR)
+		VectorGrafico(self.posicion, self.velocidad.get_vector_y()).render(superficie=self.canvas.superficie,
+			color=PARTICULA_VECTOR_Y_COLOR, grosor=PARTICULA_VECTOR_Y_GROSOR)
 
 		if(self.tiempo_transcurrido >= self.tiempo_total):
 			self.estado = Estado.TERMINADO

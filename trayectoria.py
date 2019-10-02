@@ -2,6 +2,8 @@ import pygame
 
 from punto import Punto
 
+from variables import (TRAYECTORIA_COLOR, TRAYECTORIA_GROSOR)
+
 class Trayectoria:
 	"""
 		Representa la trayectoria de una partícula, almacenando
@@ -40,5 +42,5 @@ class Trayectoria:
 		
 	def render(self, canvas):
 		for punto_x, punto_y in self.puntos.items():
-			pygame.draw.circle(canvas.superficie, (100, 50, 250), (punto_x, punto_y), 1, 0)
+			pygame.draw.circle(canvas.superficie, TRAYECTORIA_COLOR, (punto_x, punto_y), TRAYECTORIA_GROSOR, 0)
 

@@ -5,6 +5,8 @@ import pygame
 from particula import Particula
 from particula import Estado
 
+from variables import SIMULACION_FONDO_COLOR
+
 class Canvas:
 	"""
 		una subventana para renderizar lo que se quiera
@@ -12,14 +14,14 @@ class Canvas:
 		a una ventana.
 	"""
 
-	def __init__(self, tamano, origen, background=(0,255,0)):
+	def __init__(self, tamano, origen):
 		self.tamano = tamano
 		self.origen = origen
 		self.pantalla = None
 		self.superficie = pygame.Surface(tamano)
 		self.ratio_vertical = 0.60 #ajusta la proporción vertical
 		self.ratio_horizontal = 0.5 #no es relevante al final
-		self.background = background
+		self.background = SIMULACION_FONDO_COLOR
 		self.particulas = {}
 
 	def get_superficie(self):
@@ -40,8 +42,8 @@ class Canvas:
 		for particula in self.particulas.values():
 			if particula.tiempo_transcurrido < particula.tiempo_total:
 				particula.simular()
-			pygame.draw.circle(self.superficie, (255, 100, 50), (int(particula.posicion.x), int(particula.posicion.y)), 4, 0)
 			particula.trayectoria.render(self)
+			pygame.draw.circle(self.superficie, particula.color, (int(particula.posicion.x), int(particula.posicion.y)), particula.radio, 0)
 			if(particula.estado == Estado.TERMINADO):		#al terminar la simulación
 				#self.render_trayectoria(0)
 				pos_x = pygame.mouse.get_pos()[0]
