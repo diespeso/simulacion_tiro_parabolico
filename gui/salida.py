@@ -21,9 +21,19 @@ class Salida:
 		else:
 			self._particula = None
 
+		if 'posicion' in args:
+			posicion = args['posicion']
+		else:
+			posicion = (150, 0)
+
+		if 'tamano' in args:
+			tamano = args['tamano']
+		else:
+			tamano = (500, 200)
+
 		self._caja = thorpy.Box(elements=[e for e in self._etiquetas.values()],
-			size=(500, 200))
-		self._caja.set_topleft((200, 0))
+			size=tamano)
+		self._caja.set_topleft(posicion)
 		self._caja.blit()
 		self._caja.update()
 
@@ -33,7 +43,7 @@ class Salida:
 	def update(self, **args):
 		if 'salidas' in args:
 			for etiqueta, salida in zip(self._etiquetas.keys(), args['salidas']):
-				texto = etiqueta + "{}"
+				texto = etiqueta + ": {}"
 				self._etiquetas[etiqueta].set_text(texto.format(str(salida)))
 
 	def render(self):

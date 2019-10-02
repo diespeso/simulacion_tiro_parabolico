@@ -62,6 +62,7 @@ class Particula:
 			/ self.gravedad.get_repr_y()) * 2
 		self.altura_maxima = (self.velocidad_inicial.get_vector_y().get_modulo()
 			* self.tiempo_total / 2.0) + (self.gravedad.get_repr_y() * math.pow(self.tiempo_total / 2, 2.0)) / 2
+		self.distancia_recorrida = self.velocidad_inicial.get_vector_x().escalar(self.tiempo_total).get_modulo()
 		
 		self.simular()
 

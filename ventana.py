@@ -83,7 +83,9 @@ class Ventana:
 		entrada = Entrada(entradas=["velocidad", "angulo"])
 		salida = Salida(elementos=["distancia", "altura",
 			"velocidad", "velocidad x", "velocidad y",
-			"tiempo"])
+			"tiempo"], tamano=(300, 200), posicion=(170, 0))
+		salida_estatica = Salida(elementos=["tiempo total",
+			"desplazamiento total", "altura maxima"], posicion=(470, 0), tamano=(250, 200))
 
 		#NEWCODE2
 
@@ -95,7 +97,7 @@ class Ventana:
 				if entrada._activado:
 					modulo = int(entrada.valores['velocidad'])
 					angulo = int(entrada.valores['angulo'])
-					self.canvas["0"].particulas[0]	.lanzar(modulo, angulo)
+					self.canvas["0"].particulas[0].lanzar(modulo, angulo)
 					entrada._activado = False
 				#NEWCODE2
 
@@ -112,17 +114,22 @@ class Ventana:
 				particula = self.canvas["0"].particulas[0]
 				pos_x = pygame.mouse.get_pos()[0]
 
+				salida_estatica.update(salidas=[
+					"{:.2f}s".format(particula.tiempo_total),
+					"{:.2f}m".format(particula.distancia_recorrida),
+					"{:.2f}m".format(particula.altura_maxima)])
+
 				if pos_x in particula.trayectoria.puntos.keys():
 					pos_y = particula.trayectoria.get_punto_y(pos_x)
 					velocidad = particula.trayectoria.get_velocidad(pos_x)
 					tiempo = particula.trayectoria.get_tiempo(pos_x)
 					salida.update(salidas=[
-						pos_x,
-						pos_y,
-						velocidad,
-						velocidad.get_vector_x(),
-						velocidad.get_vector_y(),
-						"{:.2f}".format(tiempo)])
+						"{}m".format(pos_x),
+						"{}m".format(pos_y),
+						"{}".format(velocidad),
+						"{:.2f} m/s".format(velocidad.get_vector_x().get_modulo()),
+						"{:.2f} m/s".format(velocidad.get_vector_y().get_modulo()),
+						"{:.2f}s".format(tiempo)])
 			
 			"""
 			menu.refresh_population()
@@ -134,6 +141,7 @@ class Ventana:
 			#NEWCODE
 			entrada.render()
 			salida.render()
+			salida_estatica.render()
 			self.display()
 
 	def display(self):
