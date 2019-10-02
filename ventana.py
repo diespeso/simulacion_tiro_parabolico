@@ -79,9 +79,11 @@ class Ventana:
 
 		#NEWCODE2
 		from gui.entrada import Entrada
-		from gui.entrada import Salida
+		from gui.salida import Salida
 		entrada = Entrada(entradas=["velocidad", "angulo"])
-		salida = Salida(self.canvas["0"].particulas[0])
+		salida = Salida(elementos=["distancia", "altura",
+			"velocidad", "velocidad x", "velocidad y",
+			"tiempo"])
 
 		#NEWCODE2
 
@@ -93,7 +95,7 @@ class Ventana:
 				if entrada._activado:
 					modulo = int(entrada.valores['velocidad'])
 					angulo = int(entrada.valores['angulo'])
-					self.canvas["0"].particulas[0].lanzar(modulo, angulo)
+					self.canvas["0"].particulas[0]	.lanzar(modulo, angulo)
 					entrada._activado = False
 				#NEWCODE2
 
@@ -107,7 +109,20 @@ class Ventana:
 			self.superficie.fill(self.background)
 
 			if self.canvas["0"].particulas[0].estado == Estado.TERMINADO:
-				salida.update()
+				particula = self.canvas["0"].particulas[0]
+				pos_x = pygame.mouse.get_pos()[0]
+
+				if pos_x in particula.trayectoria.puntos.keys():
+					pos_y = particula.trayectoria.get_punto_y(pos_x)
+					velocidad = particula.trayectoria.get_velocidad(pos_x)
+					tiempo = particula.trayectoria.get_tiempo(pos_x)
+					salida.update(salidas=[
+						pos_x,
+						pos_y,
+						velocidad,
+						velocidad.get_vector_x(),
+						velocidad.get_vector_y(),
+						"{:.2f}".format(tiempo)])
 			
 			"""
 			menu.refresh_population()

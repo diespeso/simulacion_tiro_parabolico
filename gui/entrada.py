@@ -5,10 +5,10 @@ import thorpy
 
 from collections import OrderedDict
 
+
+"""
+
 class Salida:
-	"""
-		Clase para mostrar las características de una partícula
-	"""
 
 	def __init__(self, particula):
 		self._particula = particula
@@ -53,7 +53,7 @@ class Salida:
 		self.menu.refresh_population()
 		self.menu.blit_and_update()
 
-
+"""
 
 class Entrada:
 	"""
@@ -138,6 +138,4 @@ if __name__ == '__main__':
 	particula = Particula()
 	canvas.add_particula(particula, 0)
 	ventana.add_canvas(canvas, "0")
-
-	salida = Salida(particula)
 	ventana.run()
