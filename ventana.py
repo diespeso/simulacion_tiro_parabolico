@@ -4,14 +4,16 @@ import pygame
 
 from particula import Estado
 
+from variables import MENU_FONDO_COLOR
+
 pygame.init()
 
 class Ventana:
 	#clase de utilería para abrir una ventana y renderizar
-	def __init__(self, tamano, background=(255, 255, 255)):
+	def __init__(self, tamano):
 		self.tamano = tamano
 		self.superficie = pygame.display.set_mode(tamano)
-		self.background = background
+		self.background = MENU_FONDO_COLOR
 		self.canvas = {}
 
 	def get_superficie(self):
@@ -45,6 +47,7 @@ class Ventana:
 		activo = True
 
 		#NEWCODE
+		"""
 		import thorpy
 		self.inserter_angulo = thorpy.Inserter("angulo: ")
 		self.inserter_velocidad = thorpy.Inserter("velocidad: ")
@@ -64,31 +67,58 @@ class Ventana:
 
 		for elemento in menu_dos.get_population():
 			elemento.surface = self.superficie
+		
 
 		caja.blit()
 		caja.update()
 		caja_dos.blit()
 		caja_dos.blit()
+		"""
 		#NEWCODE
+
+
+		#NEWCODE2
+		from gui.entrada import Entrada
+		from gui.entrada import Salida
+		entrada = Entrada(entradas=["velocidad", "angulo"])
+		salida = Salida(self.canvas["0"].particulas[0])
+
+		#NEWCODE2
 
 		while activo:
 			for evento in pygame.event.get():
 
+				#NEWCODE2
+				entrada.update(evento)
+				if entrada._activado:
+					modulo = int(entrada.valores['velocidad'])
+					angulo = int(entrada.valores['angulo'])
+					self.canvas["0"].particulas[0].lanzar(modulo, angulo)
+					entrada._activado = False
+				#NEWCODE2
+
 				#NEWCODE
-				menu.react(evento)
-				menu_dos.react(evento)
+				#menu.react(evento)
+				#menu_dos.react(evento)
 				#NEWCODE
 				if(evento.type == pygame.QUIT):
 					activo = False
 			#NEWCODE
 			self.superficie.fill(self.background)
+
+			if self.canvas["0"].particulas[0].estado == Estado.TERMINADO:
+				salida.update()
+			
+			"""
 			menu.refresh_population()
 			menu.blit_and_update()
 			menu_dos.refresh_population()
 			menu_dos.blit_and_update()
 			self.show_position()
+			"""
 			#NEWCODE
-
+			entrada.render()
+			salida.render()
 			self.display()
 
 	def display(self):
