@@ -63,6 +63,9 @@ class Ventana:
 				if entrada._activado:
 					modulo = int(entrada.valores['velocidad'])
 					angulo = int(entrada.valores['angulo'])
+					#reiniciar
+					self.canvas["0"].particulas[0].trayectoria.clear()
+					self.canvas["0"].particulas[0].clear()
 					self.canvas["0"].particulas[0].lanzar(modulo, angulo)
 					entrada._activado = False
 
@@ -91,14 +94,6 @@ class Ventana:
 						"{:.2f} m/s".format(velocidad.get_vector_y().get_repr_y()),
 						"{:.2f}s".format(tiempo)])
 			
-			"""
-			menu.refresh_population()
-			menu.blit_and_update()
-			menu_dos.refresh_population()
-			menu_dos.blit_and_update()
-			self.show_position()
-			"""
-			#NEWCODE
 			entrada.render()
 			salida.render()
 			salida_estatica.render()

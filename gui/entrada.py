@@ -5,56 +5,6 @@ import thorpy
 
 from collections import OrderedDict
 
-
-"""
-
-class Salida:
-
-	def __init__(self, particula):
-		self._particula = particula
-		self.distancia = "Distancia: {}m"
-		self.altura = "Altura: {}m"
-		self.velocidad = "Velocidad: {}"
-		self.velocidad_x = "Velocidad horizontal: {}"
-		self.velocidad_y = "Velocidad vertical: {}"
-		self.tiempo = "Tiempo {:.2f}"
-
-		COLOR = (0, 0, 0)
-		TFUENTE = 10
-
-		self.distancia_et = thorpy.make_text("Distancia: ", TFUENTE, COLOR)
-		self.altura_et = thorpy.make_text("Altura: ", TFUENTE, COLOR)
-		self.velocidad_et = thorpy.make_text("Velocidad: ", TFUENTE, COLOR)
-		self.velocidad_x_et = thorpy.make_text("Velocidad h: ", TFUENTE, COLOR)
-		self.velocidad_y_et = thorpy.make_text("Velocidad v: ", TFUENTE, COLOR)
-		self.tiempo_et = thorpy.make_text("Tiempo: ", TFUENTE, COLOR)
-
-		self.caja = thorpy.Box(elements=[self.distancia_et, self.altura_et, self.velocidad_et,
-			self.velocidad_x_et, self.velocidad_y_et, self.tiempo_et], size=(500, 200))
-		self.caja.set_topleft((200, 0))
-
-		self.caja.blit()
-		self.caja.update()
-
-		self.menu = thorpy.Menu()
-		self.menu.add_to_population(self.caja)
-
-	def update(self):
-		pos_x = pygame.mouse.get_pos()[0]
-		if(pos_x in self._particula.trayectoria.puntos.keys()):
-			self.distancia_et.set_text(self.distancia.format(pos_x))
-			self.altura_et.set_text(self.altura.format(self._particula.trayectoria.get_punto_y(pos_x)))
-			self.velocidad_et.set_text(self.velocidad.format(self._particula.trayectoria.get_velocidad(pos_x)))
-			self.tiempo_et.set_text(self.tiempo.format(self._particula.trayectoria.get_tiempo(pos_x)))
-			self.velocidad_x_et.set_text(self.velocidad_x.format(self._particula.trayectoria.get_velocidad(pos_x).get_vector_x()))
-			self.velocidad_y_et.set_text(self.velocidad_y.format(self._particula.trayectoria.get_velocidad(pos_x).get_vector_y()))
-
-	def render(self):
-		self.menu.refresh_population()
-		self.menu.blit_and_update()
-
-"""
-
 class Entrada:
 	"""
 		Un conjunto de Inserters para realizar entrada
