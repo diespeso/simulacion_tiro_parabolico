@@ -4,8 +4,12 @@ import pygame
 
 from particula import Particula
 from particula import Estado
+from punto import Punto
 
 from variables import SIMULACION_FONDO_COLOR
+from variables import (PARTICULA_VECTOR_X_COLOR, PARTICULA_VECTOR_Y_COLOR,
+	PARTICULA_VECTOR_X_GROSOR, PARTICULA_VECTOR_COLOR)
+from vector_grafico import VectorGrafico
 
 class Canvas:
 	"""
@@ -45,13 +49,32 @@ class Canvas:
 			particula.trayectoria.render(self)
 			pygame.draw.circle(self.superficie, particula.color, (int(particula.posicion.x), int(particula.posicion.y)), particula.radio, 0)
 			if(particula.estado == Estado.TERMINADO):		#al terminar la simulación
-				#self.render_trayectoria(0)
+				
 				pos_x = pygame.mouse.get_pos()[0]
-				if pos_x in particula.trayectoria.puntos.keys():
+				if pos_x in particula.trayectoria.puntos.keys(): #cuando termina la simulación
 					pos_y = particula.trayectoria.puntos[pos_x]
-					#print(pos_x, pos_y)
+					#renderizando el punto
 					pygame.draw.circle(self.superficie, (255, 255, 0), (pos_x, pos_y), 3, 0)
+					#renderizado de los vectores componentes
+					vector = particula.trayectoria.velocidades[pos_x]
+					VectorGrafico(Punto(pos_x, pos_y), vector.get_vector_x()).render( #velocidad x
+						superficie=self.superficie,
+						color=PARTICULA_VECTOR_X_COLOR,
+						grosor=PARTICULA_VECTOR_X_GROSOR)
+
+					VectorGrafico(Punto(pos_x, pos_y), vector.get_vector_y()).render( #velocidad y
+						superficie=self.superficie,
+						color=PARTICULA_VECTOR_Y_COLOR,
+						grosor=PARTICULA_VECTOR_X_GROSOR
+					)
+
+					VectorGrafico(Punto(pos_x, pos_y), vector).render(
+						superficie=self.superficie,
+						color=PARTICULA_VECTOR_COLOR,
+						grosor=PARTICULA_VECTOR_X_GROSOR
+					)
 		
+		#acomoda la pantalla para que se vea bien el tiro
 		self.superficie.blit(pygame.transform.rotate(self.superficie, 180), (0, 0))
 		self.superficie.blit(pygame.transform.flip(self.superficie, True, False), (0, 0))
 	

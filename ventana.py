@@ -46,38 +46,6 @@ class Ventana:
 	def run(self):
 		activo = True
 
-		#NEWCODE
-		"""
-		import thorpy
-		self.inserter_angulo = thorpy.Inserter("angulo: ")
-		self.inserter_velocidad = thorpy.Inserter("velocidad: ")
-		self.boton = thorpy.make_button("Ok", func=self.leer)
-		self.posicion_x = thorpy.make_text("posicion_x", 12, (0, 0, 0))
-		self.posicion_y = thorpy.make_text("posicion_y", 12, (0, 0, 0))
-		caja = thorpy.Box(elements=[self.inserter_velocidad, self.inserter_angulo, self.boton])
-		caja_dos = thorpy.Box(elements=[self.posicion_x, self.posicion_y])
-		caja_dos.set_topleft((250, 0))
-		menu = thorpy.Menu()
-		menu_dos = thorpy.Menu()
-		menu.add_to_population(caja)
-		menu_dos.add_to_population(caja_dos)
-
-		for elemento in menu.get_population():
-			elemento.surface = self.superficie
-
-		for elemento in menu_dos.get_population():
-			elemento.surface = self.superficie
-		
-
-		caja.blit()
-		caja.update()
-		caja_dos.blit()
-		caja_dos.blit()
-		"""
-		#NEWCODE
-
-
-		#NEWCODE2
 		from gui.entrada import Entrada
 		from gui.salida import Salida
 		entrada = Entrada(entradas=["velocidad", "angulo"])
@@ -87,27 +55,19 @@ class Ventana:
 		salida_estatica = Salida(elementos=["tiempo total",
 			"desplazamiento total", "altura maxima"], posicion=(470, 0), tamano=(250, 200))
 
-		#NEWCODE2
 
 		while activo:
 			for evento in pygame.event.get():
 
-				#NEWCODE2
 				entrada.update(evento)
 				if entrada._activado:
 					modulo = int(entrada.valores['velocidad'])
 					angulo = int(entrada.valores['angulo'])
 					self.canvas["0"].particulas[0].lanzar(modulo, angulo)
 					entrada._activado = False
-				#NEWCODE2
 
-				#NEWCODE
-				#menu.react(evento)
-				#menu_dos.react(evento)
-				#NEWCODE
 				if(evento.type == pygame.QUIT):
 					activo = False
-			#NEWCODE
 			self.superficie.fill(self.background)
 
 			if self.canvas["0"].particulas[0].estado == Estado.TERMINADO:
@@ -128,7 +88,7 @@ class Ventana:
 						"{}m".format(pos_y),
 						"{}".format(velocidad),
 						"{:.2f} m/s".format(velocidad.get_vector_x().get_modulo()),
-						"{:.2f} m/s".format(velocidad.get_vector_y().get_modulo()),
+						"{:.2f} m/s".format(velocidad.get_vector_y().get_repr_y()),
 						"{:.2f}s".format(tiempo)])
 			
 			"""

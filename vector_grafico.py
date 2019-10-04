@@ -4,6 +4,8 @@ import pygame
 class VectorGrafico:
 
 	def __init__(self, origen, vector):
+		#origen: Punto
+		#vector: Vector
 		self._origen = origen
 		self._vector = vector
 
