@@ -56,12 +56,12 @@ class Particula:
 
 		self.estado = Estado.EN_MOVIMIENTO
 		self.velocidad_inicial = Vector(modulo=velocidad, angulo=angulo)
-		print(self.velocidad_inicial)
 		self.velocidad = self.velocidad_inicial
 		self.tiempo_total = (-self.velocidad_inicial.get_vector_y().get_modulo()
 			/ self.gravedad.get_repr_y()) * 2
 		self.altura_maxima = (self.velocidad_inicial.get_vector_y().get_modulo()
 			* self.tiempo_total / 2.0) + (self.gravedad.get_repr_y() * math.pow(self.tiempo_total / 2, 2.0)) / 2
+		self.distancia_recorrida = self.velocidad_inicial.get_vector_x().escalar(self.tiempo_total).get_modulo()
 		
 		self.simular()
 
@@ -95,10 +95,21 @@ class Particula:
 
 		if(self.tiempo_transcurrido >= self.tiempo_total):
 			self.estado = Estado.TERMINADO
-			#self.trayectoria.mostrar()
 
 	def get_velocidad_actual(self, posicion_x):
 		return self.velocidad
+
+	def clear(self):
+		self.posicion = Punto(0, 0)
+		self.velocidad = Vector(x=0, y=0)
+		self.gravedad = Vector(modulo=9.8, angulo=270)
+		self.velocidad_inicial = Vector(x=0, y=0)
+		self.tiempo_transcurrido = 0
+		self.tiempo_total = 0
+		self.altura_maxima = 0
+		self.distancia_recorrida = 0
+		self.estado = Estado.SIN_LANZAR
+
 
 	def get_posicion_actual(self, posicion_x):
 		return self.posicion

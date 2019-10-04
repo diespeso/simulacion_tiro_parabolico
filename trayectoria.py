@@ -39,6 +39,16 @@ class Trayectoria:
 	def get_tiempo(self, punto_x):
 		return self.tiempos[punto_x]
 
+	def all(self, punto_x):
+		return [self.get_punto_y(punto_x),
+		self.get_velocidad(punto_x),
+		self.get_tiempo(punto_x)]
+
+	def clear(self):
+		self.puntos = {}
+		self.velocidades = {}
+		self.tiempos = {}
+
 		
 	def render(self, canvas):
 		for punto_x, punto_y in self.puntos.items():
