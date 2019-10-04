@@ -55,6 +55,9 @@ class Ventana:
 		salida_estatica = Salida(elementos=["tiempo total",
 			"desplazamiento total", "altura maxima"], posicion=(470, 0), tamano=(250, 200))
 
+		salida._caja.fit_children()
+		salida_estatica._caja.fit_children()
+
 
 		while activo:
 			for evento in pygame.event.get():

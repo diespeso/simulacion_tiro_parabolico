@@ -84,7 +84,7 @@ if __name__ == '__main__':
 	import pygame
 
 	ventana = Ventana((800, 600))
-	canvas = Canvas((800, 400), (0, 200))
+	canvas = Canvas((800, 450), (0, 150))
 	particula = Particula()
 	canvas.add_particula(particula, 0)
 	ventana.add_canvas(canvas, "0")

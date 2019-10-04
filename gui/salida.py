@@ -29,7 +29,7 @@ class Salida:
 		if 'tamano' in args:
 			tamano = args['tamano']
 		else:
-			tamano = (500, 200)
+			pass#tamano = (500, 200)
 
 		self._caja = thorpy.Box(elements=[e for e in self._etiquetas.values()],
 			size=tamano)
@@ -41,6 +41,7 @@ class Salida:
 		self._menu.add_to_population(self._caja)
 
 	def update(self, **args):
+		self._caja.fit_children()
 		if 'salidas' in args:
 			for etiqueta, salida in zip(self._etiquetas.keys(), args['salidas']):
 				texto = etiqueta + ": {}"
