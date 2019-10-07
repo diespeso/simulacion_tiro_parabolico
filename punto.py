@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Punto:
 	"""Simple representación de un punto en el espacio
 	Args:

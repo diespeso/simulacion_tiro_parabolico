@@ -1,5 +1,5 @@
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python3
-#-*- coding=utf-8 -*-
 
 import math
 
@@ -61,7 +61,7 @@ class Vector:
 		return '({0:.2f}m, {1:.2f}°)'.format(self.modulo, self.angulo)
 
 
-	def get_modulo(self) -> float:
+	def get_modulo(self):
 		"""Regresa el módulo (tamaño del vector) en valor absoluto
 		"""
 		return self.modulo

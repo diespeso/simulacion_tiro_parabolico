@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module trayectoria</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>trayectoria</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/radge/Escritorio/pycode/proyecto_final/trayectoria.py">/home/radge/Escritorio/pycode/proyecto_final/trayectoria.py</a></font></td></tr></table>
+    <p><tt>#-*-&nbsp;coding:&nbsp;utf-8&nbsp;-*-</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="pygame.html">pygame</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="trayectoria.html#Trayectoria">Trayectoria</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Trayectoria">class <strong>Trayectoria</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Una&nbsp;<a href="#Trayectoria">Trayectoria</a>&nbsp;representa&nbsp;la&nbsp;trayectoria&nbsp;de&nbsp;una&nbsp;partícula,&nbsp;almacenando<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;los&nbsp;datos&nbsp;más&nbsp;relevantes&nbsp;de&nbsp;su&nbsp;movimiento:&nbsp;puntos&nbsp;en&nbsp;x&nbsp;e&nbsp;y,&nbsp;velocidades&nbsp;en&nbsp;esos&nbsp;puntos,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;el&nbsp;tiempo&nbsp;en&nbsp;esos&nbsp;puntos.<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;puntos&nbsp;(:class:&nbsp;Dict[int,&nbsp;int]):&nbsp;las&nbsp;alturas&nbsp;registradas&nbsp;en&nbsp;la&nbsp;trayectoria.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;velocidades&nbsp;(:class:&nbsp;Dict[int,&nbsp;Vector]):&nbsp;las&nbsp;velocidades&nbsp;registradas&nbsp;en&nbsp;la&nbsp;trayectoria.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tiempos:&nbsp;(:class:&nbsp;Dict[int,&nbsp;double]):&nbsp;Los&nbsp;tiempos&nbsp;regisrados&nbsp;en&nbsp;la&nbsp;trayectoria.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Trayectoria-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="Trayectoria-add_punto"><strong>add_punto</strong></a>(self, punto)</dt><dd><tt>Añade&nbsp;un&nbsp;punto&nbsp;a&nbsp;la&nbsp;trayectoria.<br>
+Separa&nbsp;el&nbsp;punto&nbsp;en&nbsp;su&nbsp;coordenada&nbsp;en&nbsp;x&nbsp;y&nbsp;usa&nbsp;esta&nbsp;coordenada&nbsp;como&nbsp;la&nbsp;llave<br>
+para&nbsp;el&nbsp;valor&nbsp;de&nbsp;su&nbsp;coordenada&nbsp;en&nbsp;y.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;punto&nbsp;(:class:&nbsp;Punto):&nbsp;un&nbsp;punto&nbsp;para&nbsp;añadir&nbsp;a&nbsp;la&nbsp;trayectoria</tt></dd></dl>
+
+<dl><dt><a name="Trayectoria-clear"><strong>clear</strong></a>(self)</dt><dd><tt>Borra&nbsp;todos&nbsp;los&nbsp;registros&nbsp;de&nbsp;la&nbsp;trayectoria</tt></dd></dl>
+
+<dl><dt><a name="Trayectoria-get_punto_y"><strong>get_punto_y</strong></a>(self, punto_x)</dt></dl>
+
+<dl><dt><a name="Trayectoria-get_tiempo"><strong>get_tiempo</strong></a>(self, punto_x)</dt></dl>
+
+<dl><dt><a name="Trayectoria-get_velocidad"><strong>get_velocidad</strong></a>(self, punto_x)</dt></dl>
+
+<dl><dt><a name="Trayectoria-mostrar"><strong>mostrar</strong></a>(self)</dt><dd><tt>Imprime&nbsp;a&nbsp;el&nbsp;registro&nbsp;de&nbsp;todos&nbsp;los&nbsp;datos&nbsp;capturados&nbsp;en&nbsp;la&nbsp;trayectoria</tt></dd></dl>
+
+<dl><dt><a name="Trayectoria-registrar"><strong>registrar</strong></a>(self, punto, velocidad, tiempo)</dt><dd><tt>Registra&nbsp;un&nbsp;conjunto&nbsp;de&nbsp;variables&nbsp;a&nbsp;un&nbsp;punto&nbsp;en&nbsp;x&nbsp;específico.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;punto&nbsp;(:class:&nbsp;Punto):&nbsp;un&nbsp;punto&nbsp;para&nbsp;añadir&nbsp;a&nbsp;la&nbsp;trayectoria.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;velocidad&nbsp;(:class:&nbsp;Vector):&nbsp;Una&nbsp;velocidad&nbsp;para&nbsp;añadir&nbsp;a&nbsp;la&nbsp;trayectoria.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tiempo&nbsp;(:obj:double):&nbsp;Un&nbsp;tiempo&nbsp;para&nbsp;añadir&nbsp;a&nbsp;la&nbsp;trayectoria.</tt></dd></dl>
+
+<dl><dt><a name="Trayectoria-render"><strong>render</strong></a>(self, canvas)</dt><dd><tt>Renderiza&nbsp;cada&nbsp;punto&nbsp;en&nbsp;pantalla.<br>
+Si&nbsp;la&nbsp;cantidad&nbsp;de&nbsp;puntos&nbsp;es&nbsp;grande,&nbsp;los&nbsp;puntos&nbsp;estarán&nbsp;tan&nbsp;juntos<br>
+que&nbsp;parecerá&nbsp;una&nbsp;línea&nbsp;continua<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;canvas&nbsp;(:class:&nbsp;Canvas):&nbsp;El&nbsp;canvas&nbsp;donde&nbsp;dibujar&nbsp;la&nbsp;trayectoria.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>puntos</strong></dt>
+</dl>
+<dl><dt><strong>tiempos</strong></dt>
+</dl>
+<dl><dt><strong>velocidades</strong></dt>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>TRAYECTORIA_COLOR</strong> = (150, 255, 255)<br>
+<strong>TRAYECTORIA_GROSOR</strong> = 1</td></tr></table>
+</body></html>
