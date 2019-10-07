@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+#-*- coding: utf-8 -*-
 
 import pygame
 import thorpy
@@ -12,8 +13,21 @@ class Entrada:
 	"""
 
 	def leer(self):
-		"""
-			Lee todas las entradas y asigna los valores al dicionario de valores
+		"""Lee todas las entradas y asigna los valores al dicionario de valores
+
+		Attributes:
+			inserters (:class: thorpy.Inserter): Los campos de texto para entrada 
+				del usuario
+			boton (:class: thorpy.Button): El botón que manda todas las entradas.
+			valores (:class: collections.OrderedDict): Un diccionario que almacena
+				los valores recibidos de los inserters al momento de leer
+			superficie (:class: pygame.Surface): La superficie donde se renderiza
+				esta Entrada
+			menu (:class: thorpy.BasicMenu): El conjunto de elementos en pantalla
+				de esta Entrada
+			caja (:class: thorpy.Box): La caja que contiene a los elementos de
+				esta Entrada
+			activado: (:obj: bool): Se vuelve True cuando se leen los valores.
 		"""
 		for k in self._inserters.keys():
 			self._valores[k] = self._inserters[k].get_value()
@@ -48,7 +62,7 @@ class Entrada:
 				
 
 		if 'func' in args:
-			 # mejor usa mi propia función
+			 # no aplica para este programa, porque llama a la función de lanzar
 			 pass
 
 
@@ -68,13 +82,19 @@ class Entrada:
 		self._boton.surface = superficie
 
 	def update(self, event):
+		"""Solo es una función de redirección que llama al método react
+		del atributo menu
+		"""
 		self._menu.react(event)
 
 	def render(self):
+		"""Renderiza al menu de elementos
+		"""
 		self._menu.refresh_population()
 		self._menu.blit_and_update()
 
 
+#pruebas
 if __name__ == '__main__':
 	from canvas import Canvas
 	from ventana import Ventana 
