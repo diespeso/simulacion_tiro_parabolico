@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
+#-*- coding=utf-8 -*-
 
 import math
 
 from punto import Punto
 
 class Vector:
+	"""Un Vector es vector matemático, representado por coordenadas polares o rectangulares
+
+	Args:
+		**args: Una lista de argumentos opcionales.
+			Se puede introducir coordenadas polares: (modulo, angulo)
+			o coordenadas rectangulares (x, y)
+	"""
 
 	def __init__(self, **args):
 		"""
@@ -54,23 +62,32 @@ class Vector:
 
 
 	def get_modulo(self) -> float:
+		"""Regresa el módulo (tamaño del vector) en valor absoluto
+		"""
 		return self.modulo
 
 	def get_repr_x(self):
+		"""Regresa el valor de la representacíón (componente) en x.
+		Es decir, el valor será positivo o negativo dependiendo del ángulo
+		"""
 		if(self.angulo > 90 and self.angulo < 270):
 			return -self.get_vector_x().get_modulo();
 		else:
 			return self.get_vector_x().get_modulo();
 
 	def get_repr_y(self):
+		"""Regresa el valor de la representacíón (componente) en y.
+		Es decir, el valor será positivo o negativo dependiendo del ángulo
+		"""
 		if(self.angulo > 180):
 			return -self.get_vector_y().get_modulo();
 		else:
 			return self.get_vector_y().get_modulo();
 
 	def get_vector_x(self):
-		#regresa un vector representación en x
-		#IMPORTANTE: regresa el módulo en valor absoluto
+		"""regresa un vector representación en x
+		IMPORTANTE: regresa el módulo en valor absoluto
+		"""
 		modulo_x = self.modulo * math.cos(math.radians(self.angulo))
 		if(modulo_x < 0):
 			#si es negativo, toma el valor absoluto del módulo y cambia el sentido
@@ -79,8 +96,9 @@ class Vector:
 			return Vector(modulo=modulo_x, angulo=0)
 
 	def get_vector_y(self):
-		#regresa un vector representación en y
-		#IMPORTANTE: regresa el módulo en valor absoluto
+		""""regresa un vector representación en y
+		IMPORTANTE: regresa el módulo en valor absoluto
+		"""
 		modulo_y = self.modulo * math.sin(math.radians(self.angulo))
 		if(modulo_y < 0):
 			return Vector(modulo=-modulo_y, angulo=270)
@@ -88,6 +106,12 @@ class Vector:
 			return Vector(modulo=modulo_y, angulo=90)
 
 	def sumar(self, vector):
+		"""Suma dos vectores.
+		Args:
+			vector (:class: Vector): el vector a sumar con este.
+		Returns:
+			Vector: La suma de este vector más el vector dado.
+		"""
 		this_x = self.get_repr_x()
 		this_y = self.get_repr_y()
 
@@ -97,6 +121,12 @@ class Vector:
 		return Vector(x=this_x+v_x, y=this_y+v_y)
 
 	def restar(self, vector):
+		"""Resta dos vectores.
+		Args:
+			vector (:class: Vector): el vector a restar con este.
+		Returns:
+			Vector: La resta de este vector menos el vector dado.
+		"""
 		this_x = self.get_repr_x()
 		this_y = self.get_repr_y()
 
@@ -107,12 +137,30 @@ class Vector:
 		return Vector(x=this_x-v_x, y=this_y-v_y)
 
 	def descomponer(self):
+		""" Descompone el vector dado en sus componentes x, y
+
+		Returns:
+			(double, double): (componente_x, componente_y)
+		"""
 		return (self.get_vector_x(), self.get_vector_y())
 
 	def escalar(self, c):
+		"""Escala este vector con la constante dada
+		Args:
+			c (double): Una constante por la cual escalar este vector.
+		Returns:
+			Vector: Este vector escalado por la constante.
+
+		"""
 		return Vector(modulo=self.modulo * c, angulo= self.angulo)
 
 	def to_punto(self):
+		"""Convierte este vector al punto donde se ubica la punta de este vector.
+
+		Returns:
+			Punto: (represetacion_x, representacion_y)
+
+		"""
 		return Punto(self.get_repr_x(), self.get_repr_y())
 
 
